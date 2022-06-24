@@ -9,6 +9,7 @@ export default function CardCity(props) {
 				{props.text}
 			</div>
 			<FormSelect/>
+
 		</div>
 
 	</div>

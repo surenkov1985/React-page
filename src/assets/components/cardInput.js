@@ -6,11 +6,13 @@ export default function CardInput(props) {
 		<div className="form__text">
 			{props.text}
 		</div>
-		<div className="input">
-			<input  id={props.id} type={props.type}/>
-			<label for={props.id}>{props.label}</label>
+		<div className="form__input-container">
+			<div className="input">
+				<input  id={props.id} type={props.type} required="required" autoComplete="autocomplete"/>
+				<label htmlFor={props.id}>{props.label}</label>
+			</div>
+			<div className="card__placeholder">{props.place}</div>
 		</div>
-		<div className="card__placeholder">{props.place}</div>
 
 
 	</div>

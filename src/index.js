@@ -17,7 +17,4 @@ root.render(
 
 		</div>
 	</div>,
-
-
-	container
 );

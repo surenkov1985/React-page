@@ -10,55 +10,92 @@ button {
 	background: none;
 }
 body {
-
+	min-width: 320px;
 }
 
 #app {
 	width: 1169px;
 	background: #ffffff;
 	box-shadow: 0px 4px 4px rgba(#000000, 0.25), 0px 4px 4px rgba(#000000, 0.25);
-	margin: auto;
+	margin:  100px auto;
 	padding: 90px;
+
+	@media (max-width: 1170px) {
+		width: 95%;
+	}
+
+	@media (max-width: 800px) {
+		padding: 50px 30px;
+	}
+
+	@media (max-width: 390px) {
+		padding: 50px 10px;
+	}
 }
 
 .card {
 
 	&__title {
+		width: 100%;
 		display: flex;
 		align-items: baseline;
 		padding: 0 10px;
+		position: relative;
 
 		& h1 {
-			display: flex;
 			font-style: normal;
 			font-weight: 700;
 			font-size: 30px;
+
+			@media (max-width: 650px) {
+				font-size: 25px;
+			}
+		}
+
+		@media (max-width: 1000px) {
+			justify-content: space-between;
 		}
 	}
 
 	&__hello {
 		color: #666666;
+		max-width: 800px;
 	}
 
 	&__btn-tooltip {
 		margin-left: 123px;
 		font-weight: 400;
+		white-space: nowrap;
 		font-size: 12px;
 		line-height: 12px;
 		color: #0C77BB;
 		border-bottom: 1px dashed #0C77BB;
 		cursor: pointer;
+
+		&:hover {
+			opacity: 0.8;
+		}
+
+		@media (max-width: 1000px) {
+			margin-left: 10px;
+		}
 	}
 
 
 	&__user-name {
+		color: #000000;
+
 		position: relative;
-		margin-left: 9px;
+
+		@media (max-width: 600px) {
+			position: inherit;
+		}
+
 	}
 
 	&__tooltip {
-		width: 503px;
-		//min-height: 46px;
+		min-width: 300px;
+		max-width: 500px;
 		display: flex;
 		align-items: center;
 		justify-content: flex-start;
@@ -74,6 +111,10 @@ body {
 			font-size: 14px;
 			line-height: 22px;
 		}
+
+		@media (max-width: 390px) {
+			min-width: 250px;
+		}
 	}
 	&__tooltip-before {
 		position: absolute;
@@ -87,12 +128,18 @@ body {
 
 	}
 	&__placeholder {
-		max-width: 340px;
+		width: 35%;
 		font-weight: 400;
 		font-size: 12px;
 		line-height: 20px;
 		color: #999999;
 		margin-left: 18px;
+
+		@media (max-width: 800px) {
+			margin-left: 0;
+			margin-top: 15px;
+			width: 100%;
+		}
 	}
 
 }
@@ -105,37 +152,97 @@ body {
 		display: flex;
 		flex-direction: column;
 		row-gap: 40px;
-		//align-items: center;
+		width: 100%;
 		padding: 31px 10px;
 		border-bottom: 1px solid #E5E4E4;
 	}
 	&__block {
 		display: flex;
 		align-items: center;
-		//padding: 20px 0;
+
+		@media (max-width: 1000px) {
+			flex-direction: column;
+			align-items: flex-start;
+		}
 
 	}
 
+	&__block-check {
+		display: flex;
+		align-items: center;
+
+		@media (max-width: 600px) {
+			flex-direction: column;
+			align-items: flex-start!important;
+		}
+	}
+
+	&__block-button {
+		display: flex;
+		align-items: center;
+
+		@media (max-width: 800px) {
+			flex-direction: column;
+		}
+
+		& .card__placeholder {
+			@media (max-width: 800px) {
+				text-align: center;
+			}
+		}
+	}
+
 	&__text {
-		width: 223px;
+		min-width: 21.7%;
+		max-width: 500px;
 		font-weight: 400;
 		font-size: 21px;
 		line-height: 19px;
 	}
+	&__input-container {
+		display: flex;
+		align-items: baseline;
+
+		@media (max-width: 800px) {
+			width: 100%;
+			flex-direction: column;
+			align-items: flex-start;
+		}
+	}
+
+	&__check-input-container {
+		display: flex;
+		align-items: baseline;
+
+		@media (max-width: 600px) {
+			margin-top: 15px;
+		}
+	}
+	&__select {
+		display: flex;
+		align-items: baseline;
+	}
 
 	& .input {
-		width: 336px;
+		min-width: 336px;
 		height: 31px;
+		margin-left: 13px;
 		position: relative;
 		display: flex;
 		flex-direction: column;
-		//justify-content: center;
 
+		@media (max-width: 1000px) {
+			margin-left: 0;
+			margin-top: 20px;
+		}
 
+		@media (max-width: 800px) {
+			min-width: 100% !important;
+		}
 
 		& select {
-			width: 336px;
-			height: 31px;
+			width: 100%;
+			height: 100%;
 			padding: 6px 12px;
 			display: flex;
 			align-items: center;
@@ -143,6 +250,9 @@ body {
 			font-weight: 400;
 			font-size: 16px;
 			cursor: pointer;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
 			&:focus {
 				border: 1px solid #999999;
 				outline: none;
@@ -153,8 +263,8 @@ body {
 			}
 		}
 		& input {
-			width: 336px;
-			height: 31px;
+			width: 100%;
+			height: 100%;
 			padding: 6px 12px;
 			display: flex;
 			align-items: center;
@@ -197,10 +307,17 @@ body {
 		color: #FFFFFF;
 		text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
 		cursor: pointer;
-		//transition: all 0.2s;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 
 		&:hover {
 			opacity: 0.5;
+		}
+
+		&:disabled {
+			opacity: 0.5;
+			cursor: default;
 		}
 	}
 }
@@ -214,12 +331,16 @@ body {
 .check-input {
 	width: 12px;
 	height: 12px;
-	margin-left: 1px;
+	margin-left: 13px;
 	margin-top: 3px;
 	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+
+	@media (max-width: 600px) {
+		margin-left: 0;
+	}
 
 	& #check {
 		opacity: 0;
