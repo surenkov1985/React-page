@@ -7,8 +7,12 @@ import CardButton from "./cardButton";
 
 export default function CardForm() {
 
+	function handleSubmit(e) {
+		e.preventDefault();
+	};
+
 	return (
-		<form className="card__form form" action="post" target="_self">
+		<form className="card__form form" action="post" target="_self" onSubmit={handleSubmit}>
 			<CardCity text="Ваш город"/>
 			<CardPass/>
 			<CardEmail/>
