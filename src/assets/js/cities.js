@@ -3,8 +3,7 @@
 
 async function getData() {
 
-	let response = await fetch("/cities.json");
-
+	let response = await fetch("cities.json");
 
 	let data = await response.json();
 
@@ -28,7 +27,6 @@ async function getData() {
 
 	cities.map((item) => {
 
-		// const formSelect = document.querySelector(".form__cities")
 		const option = document.createElement("option");
 		const optionText = document.createTextNode(item.city);
 
@@ -36,8 +34,7 @@ async function getData() {
 
 		document.querySelector(".form__cities").appendChild(option)
 
-	})
-console.log(data, cities, firstCity)
+	});
 };
 
 getData();

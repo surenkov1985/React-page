@@ -2,29 +2,22 @@ import React from "react";
 import CardTooltip from "./cardTooltip";
 
 function onInput() {
-	console.log(111)
-	document.querySelector(".comment").classList.toggle("active")
 
-	let oldComment = document.querySelector(".card__tooltip-text").textContent
+	let oldComment = document.querySelector(".card__tooltip-text").textContent;
+
+	document.querySelector(".comment").classList.toggle("active");
 	document.getElementById("text-comment").value = oldComment;
-
-}
+};
 
 function setComment(e) {
 	e.preventDefault();
 
 	let comment = document.getElementById("text-comment").value;
-	let oldComment = document.querySelector(".card__tooltip-text").textContent
 
 	document.getElementById("text-comment").value = "";
-
-
 	document.querySelector(".card__tooltip-text").textContent = comment;
-
-
 	document.querySelector(".comment").classList.toggle("active");
-	console.log(oldComment)
-}
+};
 
 export default function CardTitle() {
 
@@ -48,5 +41,3 @@ export default function CardTitle() {
 		</div>
 	)
 }
-
-// export default CardTitle()
