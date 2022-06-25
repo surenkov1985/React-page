@@ -1,5 +1,5 @@
-import React from "react"
-import FormSelect from "./formSelect"
+import React from "react";
+import FormSelect from "./formSelect";
 
 export default function CardCity(props) {
 
@@ -12,5 +12,5 @@ export default function CardCity(props) {
 				<FormSelect/>
 			</div>
 		</div>
-	)
-}
+	);
+};

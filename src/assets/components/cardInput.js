@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 
 export default function CardInput(props) {
 
@@ -15,5 +15,5 @@ export default function CardInput(props) {
 				<div className="card__placeholder">{props.place}</div>
 			</div>
 		</div>
-	)
-}
+	);
+};

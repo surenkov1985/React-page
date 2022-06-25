@@ -1,5 +1,4 @@
-
-import React from "react"
+import React from "react";
 
 export default function CardCheck(props) {
 
@@ -29,5 +28,5 @@ export default function CardCheck(props) {
 				</div>
 			</div>
 		</div>
-	)
-}
+	);
+};

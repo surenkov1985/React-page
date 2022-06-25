@@ -1,12 +1,8 @@
 
-
-
 async function getData() {
 
 	let response = await fetch("cities.json");
-
 	let data = await response.json();
-
 	let cities = [];
 	let firstCity = {city: "", population: "0"};
 

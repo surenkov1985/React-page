@@ -1,5 +1,5 @@
-import React from "react"
-import CardInput from "./cardInput"
+import React from "react";
+import CardInput from "./cardInput";
 
 export default function CardPass(props) {
 
@@ -14,5 +14,5 @@ export default function CardPass(props) {
 			label="Укажите пароль"
 		/>
 	</div>
-	)
-}
+	);
+};

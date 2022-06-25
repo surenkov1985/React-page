@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 
 export default function CardButton(props) {
 
@@ -14,5 +14,5 @@ export default function CardButton(props) {
 				</div>
 			</div>
 		</div>
-	)
-}
+	);
+};

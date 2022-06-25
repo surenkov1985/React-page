@@ -21,8 +21,6 @@ function setComment(e) {
 
 export default function CardTitle() {
 
-
-
 	return (
 		<div className="card__title">
 			<h1 className="card__hello">
@@ -39,5 +37,5 @@ export default function CardTitle() {
 				</form>
 			</div>
 		</div>
-	)
-}
+	);
+};

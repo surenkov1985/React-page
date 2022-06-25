@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 
 export default function FormSelect() {
 
@@ -13,7 +13,7 @@ export default function FormSelect() {
 					<line y1="-1" x2="9.8995" y2="-1" transform="matrix(-0.707107 0.707107 0.707107 0.707107 14 2)" stroke="#037BB8" strokeWidth="2"/>
 				</svg>
 			</div>
-			<div className="card__placeholder"></div>
+			<div className="card__placeholder"/>
 		</div>
-	)
-}
+	);
+};
