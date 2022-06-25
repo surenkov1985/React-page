@@ -61,9 +61,78 @@ body {
 		color: #666666;
 		max-width: 800px;
 	}
+	&__btn {
+		margin-left: 123px;
+		position: relative;
+
+		@media (max-width: 1000px) {
+			margin-left: 10px;
+		}
+	}
+
+	& .comment {
+		position: absolute;
+		top: 150%;
+		right: 0;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		display: none;
+
+		&.active {
+			display: flex;
+		}
+
+		&__button {
+			width: 40px;
+			height: 40px;
+			font-weight: 400;
+			margin-top: 10px;
+			font-size: 14px;
+			line-height: 22px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+			background: #71C838;
+			box-shadow: 0px 1px 0px #539D22;
+			padding: 10px 19px;
+			font-weight: 400;
+			font-size: 18px;
+			line-height: 20px;
+			color: #FFFFFF;
+			text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
+
+			&:hover {
+				opacity: 0.6;
+			}
+		}
+	}
+
+	&__tooltip-input {
+		//position: absolute;
+
+		min-width: 200px;
+		min-height: 31px;
+		padding: 5px 12px;
+		z-index: 10;
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 22px;
+
+		border: 1px solid #999999;
+		resize: none;
+
+		&:focus {
+			border: 1px solid #999999;
+			outline: none;
+		}
+
+
+	}
 
 	&__btn-tooltip {
-		margin-left: 123px;
+
 		font-weight: 400;
 		white-space: nowrap;
 		font-size: 12px;
@@ -76,9 +145,7 @@ body {
 			opacity: 0.8;
 		}
 
-		@media (max-width: 1000px) {
-			margin-left: 10px;
-		}
+
 	}
 
 
@@ -105,12 +172,15 @@ body {
 		background: #EAEAEA;
 		z-index: 5;
 		padding: 12px 24px;
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 22px;
 
-		& span {
-			font-weight: 400;
-			font-size: 14px;
-			line-height: 22px;
-		}
+		//& span {
+		//	font-weight: 400;
+		//	font-size: 14px;
+		//	line-height: 22px;
+		//}
 
 		@media (max-width: 390px) {
 			min-width: 250px;
@@ -212,7 +282,7 @@ body {
 
 	&__check-input-container {
 		display: flex;
-		align-items: baseline;
+		align-items: center;
 
 		@media (max-width: 600px) {
 			margin-top: 15px;
