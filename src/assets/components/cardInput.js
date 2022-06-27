@@ -1,12 +1,13 @@
-import React, {useState} from "react";
+import React from "react";
 
 export default function CardInput(props) {
 
-	const [oninput, setOninput] = useState("");
-
-	const handleChange = (e) => setOninput(e.target.value);
-
-
+	function errorInput(e) {
+		if (e.code === "Enter") {
+			e.preventDefault();
+			e.target.blur();
+		}
+	}
 
 	return (
 		<div className="form__block" style={props.style}>
@@ -15,8 +16,15 @@ export default function CardInput(props) {
 			</div>
 			<div className="form__input-container">
 				<div className="input">
-					<input className="input-card" id={props.id} type={props.type} required="required" autoComplete="autocomplete" value={oninput} onChange={handleChange}/>
-					<label className="err" htmlFor={props.id}>{props.label}</label>
+					<input className="input-card"
+					       id={props.id}
+					       type={props.type}
+					       autoComplete="autocomplete"
+					       onChange={(e) => props.onChangeValue(e.target.value)}
+					       onBlur={(e) => {props.onBlurChange(e.target.value)}}
+					       onKeyPress={errorInput}
+					       style={{borderColor: props.color}}/>
+					<label className="err active" htmlFor={props.id}>{props.err}</label>
 				</div>
 				<div className="card__placeholder">{props.place}</div>
 			</div>

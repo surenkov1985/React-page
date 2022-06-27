@@ -1,5 +1,5 @@
-import React from "react";
-import FormSelect from "./formSelect";
+import React, {useState} from "react";
+import AsyncAwait from "./asyncAwait";
 
 export default function CardCity(props) {
 
@@ -9,7 +9,7 @@ export default function CardCity(props) {
 				<div className="form__text">
 					{props.text}
 				</div>
-				<FormSelect/>
+				<AsyncAwait  onChange={props.onChangeVal} error={props.error} color={props.color}/>
 			</div>
 		</div>
 	);

@@ -8,7 +8,7 @@ export default function CardButton(props) {
 				<div className="form__text">
 					{props.text}
 				</div>
-				<button className="form__btn">{props.buttonText}</button>
+				<button className="form__btn" disabled={props.disabled}>{props.buttonText}</button>
 				<div className="card__placeholder" style={{marginLeft: "13px", width: "50%! important", whiteSpace: "nowrap"}}>
 					{props.place}
 				</div>

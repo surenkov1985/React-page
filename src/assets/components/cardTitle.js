@@ -11,8 +11,13 @@ export default function CardTitle() {
 	function handleSubmit(e) {
 		e.preventDefault();
 
+		document.querySelector(".card__tooltip-text").innerHTML = textarea;
 		document.querySelector(".comment").classList.toggle("active");
 	};
+
+	function setComment() {
+		document.querySelector(".comment").classList.toggle("active");
+	}
 
 
 	return (
@@ -20,11 +25,11 @@ export default function CardTitle() {
 			<h1 className="card__hello">
 				Здравствуйте, <span className="card__user-name">
 					 Человек №3596941
-					<CardTooltip text={textarea}/>
+					<CardTooltip text={tooltipText}/>
 				</span>
 			</h1>
 			<div className="card__btn">
-				<button className="card__btn-tooltip">Cменить статус</button>
+				<button className="card__btn-tooltip" onClick={setComment}>Cменить статус</button>
 				<form action="/" className="comment" onSubmit={handleSubmit}>
 					<textarea cols={"cols=10"} id="text-comment" className="card__tooltip-input input" type="text" value={textarea} onChange={handleChange}/>
 					<button className="comment__button">OK</button>
