@@ -50,7 +50,11 @@ export default function CardForm() {
 		setDate(getDateString());
 
 		let inputs = document.querySelectorAll(".input-card");
-		inputs.forEach((input) => {input.value = ""});
+
+		for (let input of inputs) {
+			input.value = ""
+		}
+
 		document.querySelector((".form__cities")).value = "selectCity";
 
 		fetch(url, {
