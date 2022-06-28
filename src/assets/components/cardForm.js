@@ -5,11 +5,13 @@ import CardEmail from "./cardEmail";
 import CardCheck from "./cardCheck";
 import CardButton from "./cardButton";
 import getDateString from "../js/dateString";
+// require('es6-promise').polyfill();
+// require('isomorphic-fetch');
+import 'whatwg-fetch'
 
 export default function CardForm() {
-	// "https://jsonplaceholder.typicode.com/posts"
-	// "https://webhook.site/6f656c2a-655d-465e-9dae-08595b266f2d"
-	const url = "https://jsonplaceholder.typicode.com/posts";
+
+	const url = "https://webhook.site/6f656c2a-655d-465e-9dae-08595b266f2d";
 	const [data, setData] = useState({
 		"id": "",
 		"city": "",
@@ -19,9 +21,8 @@ export default function CardForm() {
 		"date": ""
 	});
 
-	console.log(data)
 	const [date, setDate] = useState("15 мая 2012 в 14:55:17");
-	const [id, setId] = useState("№3596941");
+	const [id, setId] = useState("3596941");
 	const [isBlur, setIsBlur] = useState(false);
 	const [passBlur, setPassBlur] = useState(false);
 	const [repassBlur, setRepassBlur] = useState(false);
@@ -32,18 +33,40 @@ export default function CardForm() {
 	const [repass, setRepass ] = useState("");
 
 	const [emailErr, setEmailErr ] = useState("");
-	const [cityErr, setCityErr] = useState("")
+	const [cityErr, setCityErr] = useState("");
 	const [passErr, setPassErr ] = useState("");
 	const [repassErr, setRepassErr ] = useState("");
 
-	const [color, setColor] = useState("#999999")
+	const [color, setColor] = useState("#999999");
 	const [borderColor, setBorderColor] = useState("#999999");
 	const [passColor, setPassColor] = useState("#999999");
 	const [repassColor, setRepassColor] = useState("#999999");
 
-	const [disabled, setDisabled] = useState(true)
+	const [disabled, setDisabled] = useState(true);
+	const [value, setValue] = useState("")
 
 	const typeValues = {...data};
+
+	function handleSubmit(e) {
+		e.preventDefault();
+		setDate(getDateString());
+		typeValues.date = date.toLowerCase();
+		typeValues.id = id.toLowerCase();
+		setData(typeValues);
+
+		let inputs = document.querySelectorAll(".input-card");
+		inputs.forEach((input) => {input.value = ""});
+		document.querySelector((".form__cities")).value = "selectCity";
+
+		fetch(url, {
+			method: "POST",
+			body: JSON.stringify(typeValues)
+		})
+			.then(response => {return response.text()})
+			.then(data => console.log(data));
+
+		console.log(JSON.stringify(typeValues));
+	}
 
 	useEffect(() => {
 			if (city && pass && repass && email) {
@@ -66,29 +89,9 @@ export default function CardForm() {
 			setCityErr("");
 			setCity(val);
 			setColor("#999999");
-			typeValues[id] = val;
+			typeValues[id] = val.toLowerCase();
 			setData(typeValues);
 		}
-	}
-
-	function handleSubmit(e) {
-		e.preventDefault();
-		setDate(getDateString());
-		typeValues.date = date;
-		typeValues.id = id;
-		setData(typeValues);
-
-		localStorage[id] = JSON.stringify(typeValues);
-
-		const userData = JSON.parse(localStorage[id]);
-
-			fetch(url, {
-				method: "POST",
-				mode: "cors",
-				body: JSON.stringify({...typeValues})
-			})
-				.then(response => response.json())
-					.then(data => console.log(data))
 	}
 
 	function handleName(email, id) {
@@ -111,7 +114,7 @@ export default function CardForm() {
 			setEmailErr("");
 			setEmail(email);
 			setBorderColor("#999999");
-			typeValues[id] = email;
+			typeValues[id] = email.toLowerCase();
 			setData(typeValues);
 		}
 	}
@@ -135,7 +138,7 @@ export default function CardForm() {
 			setPassErr("");
 			setPass(pass);
 			setPassColor("#999999");
-			typeValues[id] = pass;
+			typeValues[id] = pass.toLowerCase();
 			setData(typeValues);
 		}
 	}
@@ -147,7 +150,7 @@ export default function CardForm() {
 		if (!repass.length){
 
 			setRepassErr("Укажите пароль");
-			setRepassColor("red")
+			setRepassColor("red");
 		} else if (!regexpPass.test(repass)) {
 
 			setRepassErr("Используйте не менее 5 символов");
@@ -159,13 +162,13 @@ export default function CardForm() {
 
 			setRepassErr("Пароли не совпадают");
 			setRepass("");
-			setRepassColor("red")
+			setRepassColor("red");
 		} else if (regexpPass.test(repass)){
 
 			setRepassErr("");
 			setRepass(repass);
 			setRepassColor("#999999");
-			typeValues[id] = repass;
+			typeValues[id] = repass.toLowerCase();
 			setData(typeValues);
 		}
 	}
@@ -201,7 +204,7 @@ export default function CardForm() {
 			          valRepass={repass}
 			          onPassBlurChange={setPassState}
 			          onRepassBlurChange={setRepassState}/>
-			<CardEmail onChangeVal={(e) => {if (isBlur) handleName(e)}} val={email} err={emailErr} onBlurChange={setBlurState} color={borderColor}/>
+			<CardEmail onChangeVal={(e) => {if (isBlur) handleName(e)}} val={value} err={emailErr} onBlurChange={setBlurState} color={borderColor}/>
 			<CardCheck text="Я согласен" id="check" type="checkbox" place="принимать актуальную информацию на емейл"/>
 			<CardButton buttonText="Изменить" place={"последние изменения " + date} disabled={disabled}/>
 		</form>

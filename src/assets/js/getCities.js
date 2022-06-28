@@ -1,4 +1,7 @@
-import Raect, {useState, useEffect} from "react"
+import Raect, {useState, useEffect} from "react";
+// require('es6-promise').polyfill();
+// require('isomorphic-fetch');
+import 'whatwg-fetch'
 
 export default function getCities() {
 
@@ -6,15 +9,13 @@ export default function getCities() {
 	const citiesArr = [];
 	let firstCity = {city: "", population: "0"};
 
-	async function getData() {
+	function getData() {
 
-		let response = await fetch("cities.json");
-		let data = await response.json();
-		setCities(data);
-	};
+		fetch("cities.json").then((response) => {return response.json()}).then((data) => setCities(data)).catch(error => console.log(error));
 
-	useEffect(() => {getData()}, [])
+	}
 
+	useEffect(() => {getData()}, []);
 
 	cities.map((city) => {
 		if (parseInt(city.population) >= 50000) {
@@ -32,7 +33,4 @@ export default function getCities() {
 	citiesArr.sort((a, b) => {a.city > b.city ? 1 : -1}).unshift(firstCity);
 
 	return citiesArr;
-
 }
-
-// export default getCities()

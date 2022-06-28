@@ -17,13 +17,7 @@ export default function CardCheck(props) {
 									<path d="M1.5 2.5L0.5 3.5L3.5 6.5L7.5 1.5L6 0L3.5 4.5L1.5 2.5Z" fill="#037BB8"/>
 								</svg>
 							</span>
-							<div className="check__placeholder" style={{fontWeight: "400",
-																		fontSize: "16px",
-																		lineHeight: "19px",
-																		color: "#000000",
-																		maxWidth: "100%",
-																		marginLeft: "10px"}}
-							>
+							<div className="check__placeholder">
 								{props.place}
 							</div>
 						</label>

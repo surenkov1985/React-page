@@ -1,5 +1,7 @@
 const path = require("path");
 const fs = require('fs');
+var ES6Promise = require("es6-promise");
+ES6Promise.polyfill();
 // const PAGES_DIR = path.join(__dirname, 'src/') ;
 // const PAGES = fs.readdirSync(PAGES_DIR).filter(fileName => fileName.endsWith('.html'));
 
@@ -38,8 +40,8 @@ const build = {
 		maxEntrypointSize: 512000,
 		maxAssetSize: 512000
 	},
-	// entry: ["@babel/polyfill", "./index.js"],
-	entry: "./index.js",
+	entry: ["@babel/polyfill", "./index.js"],
+	// entry: "./index.js",
 	resolve: {
 		alias: {
 			"": path.resolve(__dirname, "src/")

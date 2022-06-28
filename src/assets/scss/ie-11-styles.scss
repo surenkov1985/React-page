@@ -1,0 +1,33 @@
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+
+	.form {
+		& .input {
+
+			height: inherit;
+		//	select {
+		//		padding: 3px 0 3px 12px;
+		//	}
+		}
+	}
+
+
+	.arrow {
+		display: none;
+	}
+
+	.check-icon {
+		display: none;
+	}
+
+	#check {
+		opacity: 1;
+	}
+
+	.check-input {
+
+		& #check {
+			opacity: 1;
+
+		}
+	}
+}

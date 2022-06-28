@@ -1,6 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 
 export default function CardInput(props) {
+
+	const [oninput, setOninput] = useState("")
 
 	function errorInput(e) {
 		if (e.code === "Enter") {
@@ -20,7 +22,8 @@ export default function CardInput(props) {
 					       id={props.id}
 					       type={props.type}
 					       autoComplete="autocomplete"
-					       onChange={(e) => props.onChangeValue(e.target.value, e.target.id)}
+					       // value={oninput}
+					       onChange={(e) => {props.onChangeValue(e.target.value, e.target.id); setOninput(e.target.value)}}
 					       onBlur={(e) => {props.onBlurChange(e.target.value, e.target.id)}}
 					       onKeyPress={errorInput}
 					       style={{borderColor: props.color}}/>

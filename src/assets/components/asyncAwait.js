@@ -1,20 +1,15 @@
 import React, {useState} from "react";
 import getCities from "../js/getCities"
+// import "core-js/es/map"
 
 export default function AsyncAwait(props) {
 
 	const citiesData = getCities();
-	// const [err, setValue] = useState("");
-
-	// function onSelect() {
-	// 	setValue(event.target.value);
-	// 	console.log(value)
-	// }
 
 	return (
 		<div className="form__select input">
 			<label className="form__city">
-				<select id="city" className="form__cities input-card" required="required" onChange={event => props.onChange(event.target.value, event.target.id)} style={{borderColor: props.color}}>
+				<select id="city" className="form__cities" required="required" onChange={function(event){props.onChange(event.target.value, event.target.id)}} style={{borderColor: props.color}}>
 					<option value="selectCity">Выберите город</option>
 					{citiesData.map((item, index) => (
 						<option key={index} value={item.city}>{item.city}</option>
