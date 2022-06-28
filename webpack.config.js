@@ -1,9 +1,7 @@
 const path = require("path");
 const fs = require('fs');
-var ES6Promise = require("es6-promise");
+const ES6Promise = require("es6-promise");
 ES6Promise.polyfill();
-// const PAGES_DIR = path.join(__dirname, 'src/') ;
-// const PAGES = fs.readdirSync(PAGES_DIR).filter(fileName => fileName.endsWith('.html'));
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -21,13 +19,8 @@ const build = {
 		new MiniCssExtractPlugin({
 			filename: "assets/styles/[name].[contenthash].css"
 		}),
-		// ...PAGES.map(page => new HtmlWebpackPlugin({
-		// 	template: `${PAGES_DIR}/${page}`,
-		// 	filename: `./${page.replace(/\.pug/, '.html')}`,
-		// })),
 		new HtmlWebpackPlugin({
 		template: "index.html",
-		// filename: `./${page.replace(/\.pug/, '.html')}`,
 	}),
 		new CopyPlugin({
 			patterns: [
@@ -41,7 +34,6 @@ const build = {
 		maxAssetSize: 512000
 	},
 	entry: ["@babel/polyfill", "./index.js"],
-	// entry: "./index.js",
 	resolve: {
 		alias: {
 			"": path.resolve(__dirname, "src/")
@@ -79,15 +71,6 @@ const build = {
 					"sass-loader",
 				],
 			},
-			// {
-			// 	test: /\.pug$/i,
-			// 	exclude: /(node_modules|bower_components)/,
-			// 	use: [{
-			// 		loader: "html-loader"
-			// 	}, {
-			// 		loader: "pug-html-loader",
-			// 	}],
-			// },
 			{
 				test:/\.(jpg|png|svg|jpeg|gif)$/i,
 				type: "asset/resource",
@@ -137,7 +120,7 @@ const dev = {
 			}
 		}
 	},
-}
+};
 
 module.exports = Object.assign(build, mode === "development" ? dev : {})
 
