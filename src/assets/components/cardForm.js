@@ -60,7 +60,7 @@ export default function CardForm() {
 
 		fetch(url, {
 			method: "POST",
-			body: JSON.stringify(typeValues)
+			body: JSON.stringify({...typeValues})
 		})
 			.then(response => {return response.text()})
 			.then(data => console.log(data));
