@@ -5,21 +5,13 @@ import CardEmail from "./cardEmail";
 import CardCheck from "./cardCheck";
 import CardButton from "./cardButton";
 import getDateString from "../js/dateString";
-// require('es6-promise').polyfill();
+require('es6-promise').polyfill();
 // require('isomorphic-fetch');
 import 'whatwg-fetch'
 
 export default function CardForm() {
 
 	const url = "https://webhook.site/6f656c2a-655d-465e-9dae-08595b266f2d";
-	const [data, setData] = useState({
-		"id": "",
-		"city": "",
-		"password": "",
-		"repassword": "",
-		"email": "",
-		"date": ""
-	});
 
 	const [date, setDate] = useState("15 мая 2012 в 14:55:17");
 	const [id, setId] = useState("3596941");
@@ -43,16 +35,19 @@ export default function CardForm() {
 	const [repassColor, setRepassColor] = useState("#999999");
 
 	const [disabled, setDisabled] = useState(true);
-	const [value, setValue] = useState("")
 
-	const typeValues = {...data};
+	const typeValues = {
+		"id": id,
+		"city": city,
+		"password": pass,
+		"repassword": repass,
+		"email": email,
+		"date": date
+	};
 
 	function handleSubmit(e) {
 		e.preventDefault();
 		setDate(getDateString());
-		typeValues.date = date.toLowerCase();
-		typeValues.id = id.toLowerCase();
-		setData(typeValues);
 
 		let inputs = document.querySelectorAll(".input-card");
 		inputs.forEach((input) => {input.value = ""});
@@ -77,24 +72,20 @@ export default function CardForm() {
 		}
 	);
 
-	function setCityValues(val, id){
+	function setCityValues(val){
 
 		if (!val.length || val === "selectCity") {
 			setCityErr("Выберите город");
 			setCity("");
 			setColor("red");
-			typeValues.city = "";
-			setData(typeValues);
 		} else {
 			setCityErr("");
 			setCity(val);
 			setColor("#999999");
-			typeValues[id] = val.toLowerCase();
-			setData(typeValues);
 		}
 	}
 
-	function handleName(email, id) {
+	function handleName(email) {
 
 		const regexp = /^[_a-z0-9-\+-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/;
 
@@ -107,19 +98,15 @@ export default function CardForm() {
 			setEmailErr("Неверный E-mail");
 			setEmail("");
 			setBorderColor("red");
-			typeValues[id] = "";
-			setData(typeValues);
 		} else if (regexp.test(email)){
 
 			setEmailErr("");
 			setEmail(email);
 			setBorderColor("#999999");
-			typeValues[id] = email.toLowerCase();
-			setData(typeValues);
 		}
 	}
 
-	function handlePass(pass, id) {
+	function handlePass(pass) {
 		const regexpPass = /\w{5,}/;
 
 		if (!pass.length){
@@ -131,19 +118,15 @@ export default function CardForm() {
 			setPassErr("Используйте не менее 5 символов");
 			setPass("");
 			setPassColor("red");
-			typeValues[id] = "";
-			setData(typeValues);
 		} else if (regexpPass.test(pass)){
 
 			setPassErr("");
 			setPass(pass);
 			setPassColor("#999999");
-			typeValues[id] = pass.toLowerCase();
-			setData(typeValues);
 		}
 	}
 
-	function handleRepass(repass, id) {
+	function handleRepass(repass) {
 
 		const regexpPass = /\w{5,}/;
 
@@ -156,8 +139,6 @@ export default function CardForm() {
 			setRepassErr("Используйте не менее 5 символов");
 			setRepass("");
 			setRepassColor("red");
-			typeValues[id] = "";
-			setData(typeValues);
 		} else if (pass !== repass){
 
 			setRepassErr("Пароли не совпадают");
@@ -168,27 +149,25 @@ export default function CardForm() {
 			setRepassErr("");
 			setRepass(repass);
 			setRepassColor("#999999");
-			typeValues[id] = repass.toLowerCase();
-			setData(typeValues);
 		}
 	}
 
-	function setBlurState(val, id) {
+	function setBlurState(val) {
 
 		setIsBlur(true);
-		handleName(val,id);
+		handleName(val);
 	}
 
-	function setPassState(val, id) {
+	function setPassState(val) {
 
 		setPassBlur(true);
-		handlePass(val, id);
+		handlePass(val);
 	}
 
-	function setRepassState(val, id) {
+	function setRepassState(val) {
 
 		setRepassBlur(true);
-		handleRepass(val, id);
+		handleRepass(val);
 	}
 
 	return (
@@ -204,7 +183,7 @@ export default function CardForm() {
 			          valRepass={repass}
 			          onPassBlurChange={setPassState}
 			          onRepassBlurChange={setRepassState}/>
-			<CardEmail onChangeVal={(e) => {if (isBlur) handleName(e)}} val={value} err={emailErr} onBlurChange={setBlurState} color={borderColor}/>
+			<CardEmail onChangeVal={(e) => {if (isBlur) handleName(e)}} err={emailErr} onBlurChange={setBlurState} color={borderColor}/>
 			<CardCheck text="Я согласен" id="check" type="checkbox" place="принимать актуальную информацию на емейл"/>
 			<CardButton buttonText="Изменить" place={"последние изменения " + date} disabled={disabled}/>
 		</form>

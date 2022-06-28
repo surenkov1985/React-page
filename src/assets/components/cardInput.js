@@ -23,8 +23,8 @@ export default function CardInput(props) {
 					       type={props.type}
 					       autoComplete="autocomplete"
 					       // value={oninput}
-					       onChange={(e) => {props.onChangeValue(e.target.value, e.target.id); setOninput(e.target.value)}}
-					       onBlur={(e) => {props.onBlurChange(e.target.value, e.target.id)}}
+					       onChange={(e) => {props.onChangeValue(e.target.value); setOninput(e.target.value)}}
+					       onBlur={(e) => {props.onBlurChange(e.target.value)}}
 					       onKeyPress={errorInput}
 					       style={{borderColor: props.color}}/>
 					<label className="err active" htmlFor={props.id}>{props.err}</label>
