@@ -14,7 +14,7 @@ export default function AsyncAwait(props) {
 	return (
 		<div className="form__select input">
 			<label className="form__city">
-				<select id="select" className="form__cities input-card" required="required" onChange={event => props.onChange(event.target.value)} style={{borderColor: props.color}}>
+				<select id="city" className="form__cities input-card" required="required" onChange={event => props.onChange(event.target.value, event.target.id)} style={{borderColor: props.color}}>
 					<option value="selectCity">Выберите город</option>
 					{citiesData.map((item, index) => (
 						<option key={index} value={item.city}>{item.city}</option>

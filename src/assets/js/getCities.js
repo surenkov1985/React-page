@@ -1,4 +1,4 @@
-import Raect, {useState} from "react"
+import Raect, {useState, useEffect} from "react"
 
 export default function getCities() {
 
@@ -13,7 +13,8 @@ export default function getCities() {
 		setCities(data);
 	};
 
-	getData();
+	useEffect(() => {getData()}, [])
+
 
 	cities.map((city) => {
 		if (parseInt(city.population) >= 50000) {

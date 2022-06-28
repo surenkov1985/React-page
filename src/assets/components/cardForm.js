@@ -4,9 +4,24 @@ import CardPass from "./cardPass";
 import CardEmail from "./cardEmail";
 import CardCheck from "./cardCheck";
 import CardButton from "./cardButton";
+import getDateString from "../js/dateString";
 
 export default function CardForm() {
+	// "https://jsonplaceholder.typicode.com/posts"
+	// "https://webhook.site/6f656c2a-655d-465e-9dae-08595b266f2d"
+	const url = "https://jsonplaceholder.typicode.com/posts";
+	const [data, setData] = useState({
+		"id": "",
+		"city": "",
+		"password": "",
+		"repassword": "",
+		"email": "",
+		"date": ""
+	});
 
+	console.log(data)
+	const [date, setDate] = useState("15 мая 2012 в 14:55:17");
+	const [id, setId] = useState("№3596941");
 	const [isBlur, setIsBlur] = useState(false);
 	const [passBlur, setPassBlur] = useState(false);
 	const [repassBlur, setRepassBlur] = useState(false);
@@ -28,12 +43,7 @@ export default function CardForm() {
 
 	const [disabled, setDisabled] = useState(true)
 
-	const typeValues = {
-		city: city,
-		password: pass,
-		repassword: repass,
-		email: email,
-	};
+	const typeValues = {...data};
 
 	useEffect(() => {
 			if (city && pass && repass && email) {
@@ -44,23 +54,44 @@ export default function CardForm() {
 		}
 	);
 
-	function setCityValues(val){
+	function setCityValues(val, id){
 
 		if (!val.length || val === "selectCity") {
 			setCityErr("Выберите город");
 			setCity("");
 			setColor("red");
+			typeValues.city = "";
+			setData(typeValues);
 		} else {
 			setCityErr("");
 			setCity(val);
 			setColor("#999999");
+			typeValues[id] = val;
+			setData(typeValues);
 		}
 	}
+
 	function handleSubmit(e) {
 		e.preventDefault();
+		setDate(getDateString());
+		typeValues.date = date;
+		typeValues.id = id;
+		setData(typeValues);
+
+		localStorage[id] = JSON.stringify(typeValues);
+
+		const userData = JSON.parse(localStorage[id]);
+
+			fetch(url, {
+				method: "POST",
+				mode: "cors",
+				body: JSON.stringify({...typeValues})
+			})
+				.then(response => response.json())
+					.then(data => console.log(data))
 	}
 
-	function handleName(email) {
+	function handleName(email, id) {
 
 		const regexp = /^[_a-z0-9-\+-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/;
 
@@ -72,16 +103,20 @@ export default function CardForm() {
 
 			setEmailErr("Неверный E-mail");
 			setEmail("");
-			setBorderColor("red")
+			setBorderColor("red");
+			typeValues[id] = "";
+			setData(typeValues);
 		} else if (regexp.test(email)){
 
 			setEmailErr("");
 			setEmail(email);
-			setBorderColor("#999999")
+			setBorderColor("#999999");
+			typeValues[id] = email;
+			setData(typeValues);
 		}
 	}
 
-	function handlePass(pass) {
+	function handlePass(pass, id) {
 		const regexpPass = /\w{5,}/;
 
 		if (!pass.length){
@@ -92,16 +127,20 @@ export default function CardForm() {
 
 			setPassErr("Используйте не менее 5 символов");
 			setPass("");
-			setPassColor("red")
+			setPassColor("red");
+			typeValues[id] = "";
+			setData(typeValues);
 		} else if (regexpPass.test(pass)){
 
 			setPassErr("");
 			setPass(pass);
-			setPassColor("#999999")
+			setPassColor("#999999");
+			typeValues[id] = pass;
+			setData(typeValues);
 		}
 	}
 
-	function handleRepass(repass) {
+	function handleRepass(repass, id) {
 
 		const regexpPass = /\w{5,}/;
 
@@ -113,7 +152,9 @@ export default function CardForm() {
 
 			setRepassErr("Используйте не менее 5 символов");
 			setRepass("");
-			setRepassColor("red")
+			setRepassColor("red");
+			typeValues[id] = "";
+			setData(typeValues);
 		} else if (pass !== repass){
 
 			setRepassErr("Пароли не совпадают");
@@ -123,33 +164,38 @@ export default function CardForm() {
 
 			setRepassErr("");
 			setRepass(repass);
-			setRepassColor("#999999")
+			setRepassColor("#999999");
+			typeValues[id] = repass;
+			setData(typeValues);
 		}
 	}
-	function setBlurState(val) {
+
+	function setBlurState(val, id) {
 
 		setIsBlur(true);
-		handleName(val);
+		handleName(val,id);
 	}
-	function setPassState(val) {
+
+	function setPassState(val, id) {
 
 		setPassBlur(true);
-		handlePass(val);
+		handlePass(val, id);
 	}
-	function setRepassState(val) {
+
+	function setRepassState(val, id) {
 
 		setRepassBlur(true);
-		handleRepass(val);
+		handleRepass(val, id);
 	}
 
 	return (
 		<form className="card__form form" action="localStorage" method="post" target="_self" onSubmit={handleSubmit}>
 			<CardCity text="Ваш город" onChangeVal={setCityValues} error={cityErr} color={color}/>
-			<CardPass onChangePass={(e) => {if (passBlur) handlePass(e); if (repassBlur) handleRepass(e)}}
+			<CardPass onChangePass={(e) => {if (passBlur) handlePass(e)}}
 			          valPass={pass}
 			          passErr={passErr}
 			          passColor={passColor}
-			          onChangeRepass={handleRepass}
+			          onChangeRepass={(e) => {if (repassBlur) handleRepass(e)}}
 			          repassErr={repassErr}
 			          repassColor={repassColor}
 			          valRepass={repass}
@@ -157,7 +203,7 @@ export default function CardForm() {
 			          onRepassBlurChange={setRepassState}/>
 			<CardEmail onChangeVal={(e) => {if (isBlur) handleName(e)}} val={email} err={emailErr} onBlurChange={setBlurState} color={borderColor}/>
 			<CardCheck text="Я согласен" id="check" type="checkbox" place="принимать актуальную информацию на емейл"/>
-			<CardButton buttonText="Изменить" place="последние изменения 15 мая 2012 в 14:55:17" disabled={disabled}/>
+			<CardButton buttonText="Изменить" place={"последние изменения " + date} disabled={disabled}/>
 		</form>
 	);
 };
