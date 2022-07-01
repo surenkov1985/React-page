@@ -1,13 +1,13 @@
-import React, {useState} from "react";
+import React, {useState, forwardRef} from "react";
 
-export default function CardInput(props) {
+const CardInput = forwardRef((props, ref) => {
 
-	const [oninput, setOninput] = useState("")
+	const [oninput, setOninput] = useState("");
 
 	function errorInput(e) {
-		if (e.code === "Enter") {
+		if (e.key === "Enter") {
 			e.preventDefault();
-			e.target.blur();
+			props.onBlurChange(e);
 		}
 	}
 
@@ -19,18 +19,20 @@ export default function CardInput(props) {
 			<div className="form__input-container">
 				<div className="input">
 					<input className="input-card"
+					       ref={ref}
 					       id={props.id}
 					       type={props.type}
 					       autoComplete="autocomplete"
-					       // value={oninput}
-					       onChange={(e) => {props.onChangeValue(e.target.value); setOninput(e.target.value)}}
-					       onBlur={(e) => {props.onBlurChange(e.target.value)}}
-					       onKeyPress={errorInput}
-					       style={{borderColor: props.color}}/>
+						   onChange={(e) => {props.onChangeValue(e)}}
+						   onBlur={(e) => {props.onBlurChange(e)}}
+						   onKeyPress={(e) => {errorInput(e)} }
+						   style={{borderColor: props.color}}/>
 					<label className="err active" htmlFor={props.id}>{props.err}</label>
 				</div>
 				<div className="card__placeholder">{props.place}</div>
 			</div>
 		</div>
 	);
-};
+});
+
+export default CardInput;

@@ -43,6 +43,10 @@
 	&:checked ~ .check-icon > svg path{
 		fill: #037BB8;
 	}
+
+	&:focus ~ .check-icon {
+		border: 1px solid #000000;
+	}
 }
 
 .check-label {

@@ -1,11 +1,14 @@
-import React, {useState} from "react";
+import React, {useState, useRef} from "react";
 import CardInput from "./cardInput";
 
 export default function CardEmail(props) {
 
+	const emailRef = useRef();
+
 	return (
 		<div className="form__item" style={{borderBottom: "none"}}>
 			<CardInput text="Электронная почта"
+			           ref={emailRef}
 			           id="email"
 			           type="email"
 			           place="Можно изменить адрес, указанный при регистрации."

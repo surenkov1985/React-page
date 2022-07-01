@@ -5,12 +5,7 @@ export default function CardCity(props) {
 
 	return (
 		<div className="form__item">
-			<div className="form__block">
-				<div className="form__text">
-					{props.text}
-				</div>
-				<AsyncAwait  onChange={props.onChangeVal} error={props.error} color={props.color}/>
-			</div>
+			<AsyncAwait text={props.text} onChange={props.onChangeVal} error={props.error} color={props.color} onKeyPress={props.onKeyPress}/>
 		</div>
 	);
 };
