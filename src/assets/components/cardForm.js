@@ -16,6 +16,7 @@ export default function CardForm(props) {
 	const emailRef = useRef();
 	const cityRef = useRef();
 	const checkRef = useRef();
+	const buttonRef = useRef();
 
 	const [date, setDate] = useState("15 мая 2012 в 14:55:17");
 	const [id, setId] = useState("3596941");
@@ -191,6 +192,17 @@ export default function CardForm(props) {
 		handleRepass(e);
 	}
 
+	function checkHandler(e) {
+
+		console.log(e.target.checked)
+
+		if (e.key === "Enter") {
+
+			e.preventDefault();
+			buttonRef.current.focus();
+		}
+	}
+
 	return (
 		<form className="card__form form" action="localStorage" method="post" target="_self" onSubmit={handleSubmit}>
 			<div className="form__item">
@@ -234,8 +246,8 @@ export default function CardForm(props) {
 				           color={borderColor}
 				           onBlurChange={setBlurState}/>
 			</div>
-			<CardCheck ref={checkRef} text="Я согласен" id="check" type="checkbox" place="принимать актуальную информацию на емейл"/>
-			<CardButton buttonText="Изменить" place={"последние изменения " + date} disabled={disabled}/>
+			<CardCheck ref={checkRef} text="Я согласен" id="check" type="checkbox" place="принимать актуальную информацию на емейл" keyPress={checkHandler}/>
+			<CardButton ref={buttonRef} buttonText="Изменить" place={"последние изменения " + date} disabled={disabled}/>
 		</form>
 	);
 };
