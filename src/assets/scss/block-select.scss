@@ -2,7 +2,12 @@
 
 	&__select {
 		display: flex;
+		flex-direction: row!important;
 		align-items: baseline;
+
+		@media (max-width: 800px) {
+			min-width: 100% !important;
+		}
 	}
 	&__city {
 		width: 100%;
@@ -17,7 +22,7 @@
 	}
 
 	& .input {
-		min-width: 336px;
+		width: 336px;
 		min-height: 31px;
 		margin-left: 13px;
 		position: relative;
@@ -53,16 +58,10 @@
 
 			&:focus {
 				border: 1px solid #999999;
-				//outline: none;
 			}
 			&:hover {
 				backdrop-filter: opacity(0.5);
 			}
-
-			//&:hover {
-			//	//opacity: 0.5;
-			//	background-filter: opacity(0.5);
-			//}
 		}
 
 

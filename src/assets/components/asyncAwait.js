@@ -16,8 +16,8 @@ const CardCity = forwardRef((props, ref) => {
 			<div className="form__text">
 				{props.text}
 			</div>
-			<div className="form__select input">
-				<label className="form__city">
+			<div className="form__select">
+				<label className="form__city input">
 					<select ref={ref} id="city" className="form__cities" required="required" onChange={function(event){props.onChange(event.target.value, event.target.id)}} style={{borderColor: props.color}} >
 						<option value="selectCity">Выберите город</option>
 						{citiesData.map((item, index) => (
